@@ -1455,16 +1455,12 @@ def resolve_duplicates(session, task):
             log.debug('default action for duplicates: {0}', duplicate_action)
 
             if duplicate_action == 's':
-                # Skip new.
                 task.set_choice(action.SKIP)
             elif duplicate_action == 'k':
-                # Keep both. Do nothing; leave the choice intact.
                 pass
             elif duplicate_action == 'r':
-                # Remove old.
                 task.should_remove_duplicates = True
             elif duplicate_action == 'm':
-                # Merge duplicates together
                 task.should_merge_duplicates = True
             else:
                 # No default action set; ask the session.
