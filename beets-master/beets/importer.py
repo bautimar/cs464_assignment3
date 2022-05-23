@@ -226,26 +226,14 @@ class ImportSession:
                 .as_choice(['auto', True, False])
 
         # Copy, move, reflink, link, and hardlink are mutually exclusive.
-        if iconfig['move']:
-            iconfig['copy'] = False
-            iconfig['link'] = False
-            iconfig['hardlink'] = False
-            iconfig['reflink'] = False
+        if iconfig['move'] :
+            iconfig['copy'], iconfig['link'], iconfig['hardlink'], iconfig['reflink'] = False
         elif iconfig['link']:
-            iconfig['copy'] = False
-            iconfig['move'] = False
-            iconfig['hardlink'] = False
-            iconfig['reflink'] = False
+            iconfig['copy'], iconfig['move'], iconfig['hardlink'], iconfig['reflink'] = False
         elif iconfig['hardlink']:
-            iconfig['copy'] = False
-            iconfig['move'] = False
-            iconfig['link'] = False
-            iconfig['reflink'] = False
+            iconfig['copy'], iconfig['move'], iconfig['link'], iconfig['reflink'] = False
         elif iconfig['reflink']:
-            iconfig['copy'] = False
-            iconfig['move'] = False
-            iconfig['link'] = False
-            iconfig['hardlink'] = False
+            iconfig['copy'], iconfig['move'], iconfig['link'], iconfig['hardlink'] = False
 
         # Only delete when copying.
         if not iconfig['copy']:
