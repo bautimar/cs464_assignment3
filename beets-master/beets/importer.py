@@ -268,16 +268,16 @@ class ImportSession:
             elif task.choice_flag is action.SKIP:
                 self.tag_log('skip', paths)
 
-    def should_resume(self, path):
+    def should_resume(self):
         raise NotImplementedError
 
-    def choose_match(self, task):
+    def choose_match(self):
         raise NotImplementedError
 
-    def resolve_duplicate(self, task, found_duplicates):
+    def resolve_duplicate(self):
         raise NotImplementedError
 
-    def choose_item(self, task):
+    def choose_item(self):
         raise NotImplementedError
 
     def run(self):
@@ -988,7 +988,7 @@ class SentinelImportTask(ImportTask):
     def skip(self):
         return True
 
-    def set_choice(self, choice):
+    def set_choice(self):
         raise NotImplementedError
 
     def cleanup(self, **kwargs):
