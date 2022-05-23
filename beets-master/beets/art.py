@@ -147,33 +147,28 @@ def check_art_similarity(
         return artresizer.compare(art, imagepath, compare_threshold)
 
 
-def extract(log, outpath, item):
-    art = get_art(log, item)
-    outpath = bytestring_path(outpath)
-    if not art:
-        log.info('No album art present in {0}, skipping.', item)
-        return
-
-    # Add an extension to the filename.
-    ext = mediafile.image_extension(art)
-    if not ext:
-        log.warning('Unknown image type in {0}.',
-                    displayable_path(item.path))
-        return
-    outpath += bytestring_path('.' + ext)
-
-    log.info('Extracting album art from: {0} to: {1}',
-             item, displayable_path(outpath))
-    with open(syspath(outpath), 'wb') as f:
-        f.write(art)
-    return outpath
-
-
-def extract_first(log, outpath, items):
+def extract(log, outpath, items):
     for item in items:
-        real_path = extract(log, outpath, item)
-        if real_path:
-            return real_path
+        art = get_art(log, item)
+        outpath = bytestring_path(outpath)
+        if not art:
+            log.info('No album art present in {0}, skipping.', item)
+            continue
+
+        # Add an extension to the filename.
+        ext = mediafile.image_extension(art)
+        if not ext:
+            log.warning('Unknown image type in {0}.',
+                        displayable_path(item.path))
+            continue
+        outpath += bytestring_path('.' + ext)
+
+        log.info('Extracting album art from: {0} to: {1}',
+                 item, displayable_path(outpath))
+        with open(syspath(outpath), 'wb') as f:
+            f.write(art)
+        return outpath
+    return
 
 
 def clear(log, lib, query):
